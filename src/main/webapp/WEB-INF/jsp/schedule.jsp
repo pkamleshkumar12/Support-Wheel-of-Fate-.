@@ -6,6 +6,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 </head>
 <body>
-    <h1>Welcome to ${name} </h1> 
+    <h1>Soon to be developed </h1> 
 </body>
 </html>
