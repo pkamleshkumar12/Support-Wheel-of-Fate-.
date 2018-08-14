@@ -15,6 +15,10 @@ public class EngineerServiceImpl implements EngineerService {
 		
 
 		public List<Engineer> getAllEngineers() {
-			return scheduleUtility.getAllEngineer() ;
+			return scheduleUtility.getEngineersPool() ;
 		}
+		public void shuffleEngineers() {
+			scheduleUtility.shuffle();
+		}
+		
 }

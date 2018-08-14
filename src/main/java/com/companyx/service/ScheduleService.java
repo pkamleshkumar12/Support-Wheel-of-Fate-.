@@ -1,13 +1,14 @@
 package com.companyx.service;
 
-import java.util.Date;
-import java.util.List;
 import java.util.Map;
 import org.springframework.stereotype.Service;
 import com.companyx.model.Engineer;
+import com.companyx.model.Schedule;
 
 @Service
 public interface ScheduleService {
 
-	public Map<Date, List<Engineer>> getAllSchedule();
+	public Map<Schedule, Engineer>  getAllSchedule();
+	
+	public void clearSchedule();
 }

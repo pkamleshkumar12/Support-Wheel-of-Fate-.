@@ -1,46 +1,32 @@
 package com.companyx.model;
 
-import java.util.Date;
-
-import org.springframework.beans.factory.annotation.Value;
-
 public class Schedule {
-
-	
-	@Value("${no.of.shifts:}")
-	private int noOfShifts;
-	
-	private Date date;
 	private Engineer engineer;
-	private int[] shift;
-	public Schedule() {
+	private DateAndShift dateAndShift;
+	
+	
+	public Schedule(Engineer engineer, DateAndShift dateAndShift) {
 		super();
-		shift =  new int[noOfShifts];
+		this.engineer = engineer;
+		this.dateAndShift = dateAndShift;
 	}
-	public int getNoOfShifts() {
-		return noOfShifts;
-	}
-	public void setNoOfShifts(int noOfShifts) {
-		this.noOfShifts = noOfShifts;
-	}
-	public Date getDate() {
-		return date;
-	}
-	public void setDate(Date date) {
-		this.date = date;
-	}
+
 	public Engineer getEngineer() {
 		return engineer;
 	}
 	public void setEngineer(Engineer engineer) {
 		this.engineer = engineer;
 	}
-	public int[] getShift() {
-		return shift;
+
+	public DateAndShift getDateAndShift() {
+		return dateAndShift;
 	}
-	public void setShift(int[] shift) {
-		this.shift = shift;
+
+	public void setDateAndShift(DateAndShift dateAndShift) {
+		this.dateAndShift = dateAndShift;
 	}
+
+	 
 	
 	
 }

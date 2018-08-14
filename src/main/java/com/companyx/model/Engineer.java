@@ -4,12 +4,12 @@ public class Engineer {
 
 		private String id;
 		private String Name;
-		private Boolean mark;
-		public Engineer(String id, String name, Boolean mark) {
+		private int noOfDaysWorked;
+		public Engineer(String id, String name, int noOfDaysWorked) {
 			super();
 			this.id = id;
 			Name = name;
-			this.mark = mark;
+			this.noOfDaysWorked = noOfDaysWorked;
 		}
 		public String getId() {
 			return id;
@@ -23,10 +23,10 @@ public class Engineer {
 		public void setName(String name) {
 			Name = name;
 		}
-		public Boolean getMark() {
-			return mark;
+		public int getNoOfDaysWorked() {
+			return noOfDaysWorked;
 		}
-		public void setMark(Boolean mark) {
-			this.mark = mark;
+		public void addOneDaysWorked() {
+			this.noOfDaysWorked = noOfDaysWorked+1;
 		}
 }

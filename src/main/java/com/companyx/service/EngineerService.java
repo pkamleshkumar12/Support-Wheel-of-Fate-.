@@ -8,4 +8,6 @@ import com.companyx.model.Engineer;
 public interface EngineerService {
 	
 	public List<Engineer> getAllEngineers();
+	
+	public void shuffleEngineers();
 }

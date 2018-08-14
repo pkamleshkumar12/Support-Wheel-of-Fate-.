@@ -1,65 +1,57 @@
 package com.companyx.service;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
-
 import javax.inject.Inject;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-
+import com.companyx.model.DateAndShift;
 import com.companyx.model.Engineer;
+import com.companyx.model.Schedule;
+import com.companyx.utility.ScheduleUtility;
 
 @Component
 public class ScheduleServiceImpl implements ScheduleService {
 
-	@Value("${no.of.days}")
-	private int noOfDays;
+	@Value("${no.of.shifts}")
+	private int noOfShifts;
+	
+	@Value("${no.of.shifts.to.complete}")
+	private int shiftsToComplete;
 	
 	@Inject
 	private EngineerService engineerService;
 	
+	@Autowired
+	private ScheduleUtility scheduleUtility;
 	
+	private static Map<Schedule, Engineer> scheduleMap;
+	public ScheduleServiceImpl() {
+		super();
+		scheduleMap = new LinkedHashMap<Schedule, Engineer>();
+	}
+	@Override
+	public Map<Schedule, Engineer> getAllSchedule() {
+		
+		for(DateAndShift dateAndShift : scheduleUtility.getDateAndShiftPool()) {
+					for(Engineer engineer : engineerService.getAllEngineers()) {
+						// Applying rule 1, 2 and 3	check the current date and the previous day and both shifts
+						
+							if(!(engineer.getNoOfDaysWorked() == shiftsToComplete) && scheduleUtility.checkEligibility(engineer, dateAndShift)) {
+								scheduleMap.put(new Schedule(engineer, dateAndShift), engineer);
+								dateAndShift.setEngineer(engineer);
+								engineer.addOneDaysWorked();
+								break;
+							}		
+			}
+		}
+	return scheduleMap;
+	}
 	
 	@Override
-	public Map<Date, List<Engineer>> getAllSchedule() {
-		//Need to refactor and do again
-		Date date1 = new Date();
-		Map<Date, List<Engineer>> map = new LinkedHashMap<Date, List<Engineer>>();
-		map.put(date1, engineerService.getAllEngineers());
-		
-		
-		Date date=new Date();
-	    Calendar calendar = Calendar.getInstance();
-	    date=calendar.getTime(); 
-	    SimpleDateFormat s;
-	      
-	    for (int i=0; i<noOfDays;)
-	    {
-	     
-	        if (calendar.get(Calendar.DAY_OF_WEEK) > 2 && i==0) {
-	        	calendar.add(Calendar.DAY_OF_MONTH, 9-calendar.get(Calendar.DAY_OF_WEEK));
-	        } else if (calendar.get(Calendar.DAY_OF_WEEK) < 7 && calendar.get(Calendar.DAY_OF_WEEK) > 1)
-	        {
-	            date=calendar.getTime(); 
-	            s=new SimpleDateFormat("MMM dd, yyyy");
-	    	    System.out.println("i++   "+i + "  "+s.format(date)+"  "+calendar.get(Calendar.DAY_OF_WEEK));
-	    	    
-	    	    i++;
-	    	    calendar.add(Calendar.DAY_OF_MONTH, 1);
-	        } else {
-	        	 calendar.add(Calendar.DAY_OF_MONTH, 1);
-	        }
-
-	    }
-	 
-		
-		
-		return map;
+	public void clearSchedule() {
+		scheduleMap.clear();
 	}
 	
 	
