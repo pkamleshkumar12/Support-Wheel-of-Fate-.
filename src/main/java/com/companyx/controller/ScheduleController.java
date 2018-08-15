@@ -29,21 +29,19 @@ public class ScheduleController {
 	
 	@RequestMapping("/engineers")
 	public List<Engineer> getAllEngineer() {
-	 return engineerService.getAllEngineers();
+	 
+		return engineerService.getAllEngineers();
 	}
 	
 	@RequestMapping("/schedules")
-	public Map<Schedule, Engineer>   getAllSchedule() {
-		
-		Map<Schedule, Engineer>  map = scheduleService.getAllSchedule();
-				for (Entry<Schedule, Engineer> entry : map.entrySet())
-				{
-				    System.out.println(entry.getKey() +"  Date :  "+entry.getKey().getDateAndShift().getDate()+" shift :  " +entry.getKey().getDateAndShift().getShift()+ " Id :  " + entry.getValue().getId());
-				}
-	 return map;
+	public Map<String, Engineer>   getAllSchedule() {
+	
+		return scheduleService.getAllSchedule();
 	}
+	
 	@RequestMapping("/shuffle")
 	public void shuffleSchedule(HttpServletResponse response) throws IOException {
+		
 		engineerService.shuffleEngineers();
 		scheduleService.clearSchedule();
 		response.sendRedirect("/schedules");

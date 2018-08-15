@@ -26,20 +26,20 @@ public class ScheduleServiceImpl implements ScheduleService {
 	@Autowired
 	private ScheduleUtility scheduleUtility;
 	
-	private static Map<Schedule, Engineer> scheduleMap;
+	private static Map<String, Engineer> scheduleMap;
 	public ScheduleServiceImpl() {
 		super();
-		scheduleMap = new LinkedHashMap<Schedule, Engineer>();
+		scheduleMap = new LinkedHashMap<String, Engineer>();
 	}
 	@Override
-	public Map<Schedule, Engineer> getAllSchedule() {
+	public Map<String, Engineer> getAllSchedule() {
 		
 		for(DateAndShift dateAndShift : scheduleUtility.getDateAndShiftPool()) {
 					for(Engineer engineer : engineerService.getAllEngineers()) {
 						// Applying rule 1, 2 and 3	check the current date and the previous day and both shifts
 						
 							if(!(engineer.getNoOfDaysWorked() == shiftsToComplete) && scheduleUtility.checkEligibility(engineer, dateAndShift)) {
-								scheduleMap.put(new Schedule(engineer, dateAndShift), engineer);
+								scheduleMap.put(scheduleUtility.getDateAndShift(dateAndShift), engineer);
 								dateAndShift.setEngineer(engineer);
 								engineer.addOneDaysWorked();
 								break;

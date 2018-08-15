@@ -1,15 +1,18 @@
 package com.companyx.utility;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import org.apache.commons.lang.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import com.companyx.model.DateAndShift;
 import com.companyx.model.Engineer;
+import com.companyx.model.Schedule;
 
 @Component
 public class ScheduleUtility {
@@ -103,11 +106,21 @@ public class ScheduleUtility {
 		}
 	
 	public void shuffle() {
+		
 		engineerPool.clear();
 		getEngineersPool();
 		dateAndShiftPool.clear();
 		getDateAndShiftPool();
 		
-	}
+		}
 	
+	public String getDateAndShift(DateAndShift dateAndShift) {
+		
+		Calendar calendar = new GregorianCalendar();
+		calendar.setTime(dateAndShift.getDate());
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+		dateFormat.setTimeZone(calendar.getTimeZone());
+		String response = dateFormat.format(calendar.getTime())+"  Shift : "+dateAndShift.getShift();
+		return response;
+	}
 	}

@@ -8,7 +8,7 @@ import com.companyx.model.Schedule;
 @Service
 public interface ScheduleService {
 
-	public Map<Schedule, Engineer>  getAllSchedule();
+	public Map<String, Engineer>  getAllSchedule();
 	
 	public void clearSchedule();
 }
