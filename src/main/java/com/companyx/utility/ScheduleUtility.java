@@ -118,7 +118,7 @@ public class ScheduleUtility {
 		
 		Calendar calendar = new GregorianCalendar();
 		calendar.setTime(dateAndShift.getDate());
-		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+		SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy");
 		dateFormat.setTimeZone(calendar.getTimeZone());
 		String response = dateFormat.format(calendar.getTime())+"  Shift : "+dateAndShift.getShift();
 		return response;
